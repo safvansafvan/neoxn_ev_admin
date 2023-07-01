@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 var kblack = Colors.black;
+var kwhite = Colors.white;
+var kred = Colors.red;
+var kgreen = Colors.green;
 
 textStyleFuc({required weight, required color, required double size}) {
   return TextStyle(fontSize: size, fontWeight: weight, color: color);

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-import 'package:nexon_ev_admin/controller/apiservice/status.dart';
+import 'package:nexon_ev_admin/apiservice/status.dart';
 
 class ApiServices {
   // POST METHOD

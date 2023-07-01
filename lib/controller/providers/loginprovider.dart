@@ -1,40 +1,80 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:nexon_ev_admin/controller/apiservice/service.dart';
-import 'package:nexon_ev_admin/controller/apiservice/status.dart';
+import 'package:nexon_ev_admin/controller/const/const.dart';
 import 'package:nexon_ev_admin/controller/const/string.dart';
 import 'package:nexon_ev_admin/model/login_model.dart';
 import 'package:nexon_ev_admin/presentation/home.dart';
+import 'package:nexon_ev_admin/presentation/widget/snack_bar.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
+  SharedPreferences? preferences;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   final globelKey = GlobalKey<FormState>();
 
+  bool isLoading = false;
+
+  Future<void> loginButtonClick(context) async {
+    await getLoginStatus(context);
+    notifyListeners();
+  }
+
   Future<void> getLoginStatus(context) async {
+    final sharedPrefrens = await SharedPreferences.getInstance();
+    isLoading = true;
     final String url = Urls.baseUrl + Urls.admin;
-    var response = ApiServices.postMethod(
-      url: url,
-      context: context,
-      data: bodyData(),
-    );
-    if (response is Success) {
-      log("success$response");
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
-          ),
-          (route) => false);
+    var response = await http.post(Uri.parse(url), body: bodyData());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      log("${response.statusCode}");
+      final data = jsonDecode(response.body);
+      try {
+        if (data['status'] == 'success') {
+          log(response.body);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          );
+          snakBarWiget(context: context, title: "Login Success", clr: kgreen);
+          final token = data['token'];
+          sharedPrefrens.setString("token", token);
+          sharedPrefrens.setBool("isLoggedIn", true);
+          isLoading = false;
+        } else {
+          log("failed", name: "else");
+          final msg = data['message'];
+          snakBarWiget(context: context, title: msg, clr: kred);
+          isLoading = false;
+        }
+      } catch (e) {
+        log(e.toString());
+        snakBarWiget(context: context, title: e.toString(), clr: kred);
+        isLoading = false;
+      }
     }
   }
 
   Map<String, dynamic> bodyData() {
-    final body = LoginModel(
+    var body = LoginModel(
         email: emailController.text.trim(),
         password: passwordController.text.trim());
 
     return body.toJson();
+  }
+
+  ///navigate home or login
+
+  Future<void> init() async {
+    preferences = await SharedPreferences.getInstance();
+  }
+
+  bool isLoggedIn() {
+    final token = preferences?.getString("token");
+    return token != null;
   }
 }

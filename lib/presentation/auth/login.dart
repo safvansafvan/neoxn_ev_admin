@@ -14,62 +14,75 @@ class LoginPage extends StatelessWidget {
     var screenHeight = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Form(
-          key: providerLogin.globelKey,
-          child: ListView(
-            children: [
-              Padding(
-                padding:
-                    EdgeInsets.only(left: 15, top: screenHeight.height * 0.09),
-                child: Text(
-                  "Admin Login!! ",
-                  style: textStyleFuc(
-                      weight: FontWeight.w900, color: kblack, size: 25),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: screenHeight.height * 0.03, left: 10, right: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    TextFormLogin(
-                        controller: providerLogin.emailController,
-                        hintText: "Email",
-                        keyType: TextInputType.emailAddress,
-                        isEmail: true,
-                        size: screenHeight,
-                        prefixIcon: const Icon(Icons.person_outline)),
-                    commonHeight,
-                    TextFormLogin(
-                      controller: providerLogin.passwordController,
-                      hintText: "Password",
-                      keyType: TextInputType.name,
-                      isObs: true,
-                      isPassword: true,
-                      size: screenHeight,
-                      prefixIcon: const Icon(Icons.password_rounded),
-                    ),
-                    SizedBox(
-                      height: screenHeight.height * 0.05,
-                    ),
-                    const ImageWidget(image: "assets/neprime.jpeg"),
-                    SizedBox(
-                      height: screenHeight.height * 0.09,
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        if (providerLogin.globelKey.currentState!.validate()) {}
-                      },
-                      icon: const Icon(Icons.login_rounded),
-                      label: const Text("Login"),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+        child: Consumer<LoginProvider>(builder: (context, value, _) {
+          return value.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                  ),
+                )
+              : Form(
+                  key: providerLogin.globelKey,
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: 15, top: screenHeight.height * 0.09),
+                        child: Text(
+                          "Admin Login!! ",
+                          style: textStyleFuc(
+                              weight: FontWeight.w900, color: kblack, size: 25),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: screenHeight.height * 0.03,
+                            left: 10,
+                            right: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            TextFormLogin(
+                                controller: providerLogin.emailController,
+                                hintText: "Email",
+                                keyType: TextInputType.emailAddress,
+                                isEmail: true,
+                                size: screenHeight,
+                                prefixIcon: const Icon(Icons.person_outline)),
+                            commonHeight,
+                            TextFormLogin(
+                              controller: providerLogin.passwordController,
+                              hintText: "Password",
+                              keyType: TextInputType.name,
+                              isObs: true,
+                              isPassword: true,
+                              size: screenHeight,
+                              prefixIcon: const Icon(Icons.password_rounded),
+                            ),
+                            SizedBox(
+                              height: screenHeight.height * 0.05,
+                            ),
+                            const ImageWidget(image: "assets/neprime.jpeg"),
+                            SizedBox(
+                              height: screenHeight.height * 0.09,
+                            ),
+                            ElevatedButton.icon(
+                              onPressed: () async {
+                                if (providerLogin.globelKey.currentState!
+                                    .validate()) {
+                                  await providerLogin.loginButtonClick(context);
+                                }
+                              },
+                              icon: const Icon(Icons.login_rounded),
+                              label: const Text("Login"),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+        }),
       ),
     );
   }
