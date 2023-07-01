@@ -44,18 +44,17 @@ class LoginProvider extends ChangeNotifier {
           final token = data['token'];
           sharedPrefrens.setString("token", token);
           sharedPrefrens.setBool("isLoggedIn", true);
-          isLoading = false;
+          clearController();
         } else {
           log("failed", name: "else");
           final msg = data['message'];
           snakBarWiget(context: context, title: msg, clr: kred);
-          isLoading = false;
         }
       } catch (e) {
         log(e.toString());
         snakBarWiget(context: context, title: e.toString(), clr: kred);
-        isLoading = false;
       }
+      isLoading = false;
     }
   }
 
@@ -65,6 +64,11 @@ class LoginProvider extends ChangeNotifier {
         password: passwordController.text.trim());
 
     return body.toJson();
+  }
+
+  void clearController() {
+    emailController.clear();
+    passwordController.clear();
   }
 
   ///navigate home or login

@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +32,43 @@ class HomeScreen extends StatelessWidget {
         title: const Text(
           "admin",
         ),
-        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
-        ],
+        bottom: TabBar(
+            controller: _tabController,
+            tabs: [Text("Bookings"), Text("Test Drive")]),
+      ),
+      body: TabBarView(
+          controller: _tabController, children: [Text("data"), Text("data")]),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 30),
+        child: GNav(
+            rippleColor: Colors.grey,
+            hoverColor: Colors.grey,
+            haptic: true,
+            tabBorderRadius: 15,
+            tabActiveBorder: Border.all(color: Colors.black, width: 1),
+            tabBorder: Border.all(color: Colors.grey, width: 1),
+            tabShadow: [
+              BoxShadow(color: Colors.grey.withOpacity(0.5), blurRadius: 8)
+            ],
+            curve: Curves.easeOutExpo,
+            duration: const Duration(milliseconds: 900),
+            gap: 8,
+            color: Colors.grey[800],
+            activeColor: Colors.purple,
+            iconSize: 24,
+            tabBackgroundColor: Colors.purple.withOpacity(0.1),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), //
+
+            tabs: const [
+              GButton(
+                icon: Icons.bookmark_outlined,
+                text: "Bookings",
+              ),
+              GButton(
+                icon: Icons.supervised_user_circle_outlined,
+                text: "User",
+              )
+            ]),
       ),
     );
   }
