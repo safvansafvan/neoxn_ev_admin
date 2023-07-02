@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:nexon_ev_admin/controller/providers/bookings_provider.dart';
+import 'package:nexon_ev_admin/presentation/tab_bars/test_drive.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,8 +17,9 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-
     _tabController = TabController(length: 2, vsync: this);
+    Provider.of<TestDriveProvider>(context, listen: false)
+        .bookingsData(context);
   }
 
   @override
@@ -34,10 +38,10 @@ class _HomeScreenState extends State<HomeScreen>
         ),
         bottom: TabBar(
             controller: _tabController,
-            tabs: [Text("Bookings"), Text("Test Drive")]),
+            tabs: const [Text("Bookings"), Text("Test Drive")]),
       ),
       body: TabBarView(
-          controller: _tabController, children: [Text("data"), Text("data")]),
+          controller: _tabController, children: [TestDrive(), Text("data")]),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(left: 30),
         child: GNav(

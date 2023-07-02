@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nexon_ev_admin/controller/providers/bookings_provider.dart';
 import 'package:nexon_ev_admin/controller/providers/loginprovider.dart';
 import 'package:nexon_ev_admin/presentation/auth/login.dart';
 import 'package:nexon_ev_admin/presentation/home.dart';
+import 'package:nexon_ev_admin/presentation/tab_bars/test_drive.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -18,7 +20,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => LoginProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TestDriveProvider(),
+        ),
       ],
       child: FutureBuilder(
           future: provider.init(),
