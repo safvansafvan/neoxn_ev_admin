@@ -8,18 +8,24 @@ class TestDrive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TestDriveProvider>(builder: (context, value, _) {
-      return ListView.builder(
-          itemCount: value.bookingDetails.length,
-          itemBuilder: (context, index) {
-            final details = value.bookingDetails[index];
-            return ListTile(
-              leading: Text(details['name']),
-              title: Text(
-                details['email'],
-              ),
-              trailing: const Text("...."),
-            );
-          });
+      return ListView.separated(
+        itemCount: value.bookingDetails.length,
+        itemBuilder: (context, index) {
+          final details = value.bookingDetails[index];
+          return ListTile(
+            leading: Text(details['name']),
+            title: Text(
+              details['email'],
+            ),
+          );
+        },
+        separatorBuilder: (context, index) {
+          return const Divider(
+            color: Colors.blueGrey,
+            thickness: 2,
+          );
+        },
+      );
     });
   }
 }
