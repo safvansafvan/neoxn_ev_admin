@@ -6,4 +6,7 @@ class Urls {
   //get
   static String getBookings = "/get-bookings";
   static String getTestDrive = "/test-drive";
+
+  //user
+  static String getUsers = "/get-users";
 }

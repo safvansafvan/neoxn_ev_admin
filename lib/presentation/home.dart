@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:nexon_ev_admin/controller/providers/booked_provider.dart';
+import 'package:nexon_ev_admin/controller/providers/get_users_provider.dart';
 import 'package:nexon_ev_admin/controller/providers/test_dbooked_provider.dart';
-import 'package:nexon_ev_admin/presentation/tab_bars/bookings.dart';
-import 'package:nexon_ev_admin/presentation/tab_bars/test_drive.dart';
+import 'package:nexon_ev_admin/presentation/bottom_nav_screens/booking_screen/bookings_screen.dart';
+import 'package:nexon_ev_admin/presentation/bottom_nav_screens/user_dealer_screen/user_dealer_screen.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,45 +14,31 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _HomeScreenState extends State<HomeScreen> {
+  List screen = const [BookingScreen(), UserAndDealerScreen()];
+  int currentInd = 0;
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+    Provider.of<TestDriveProvider>(context, listen: false)
+        .testDriveBookingData(context);
+    Provider.of<BookingProvider>(context, listen: false).bookingsData(context);
+    Provider.of<UsersProvider>(context, listen: false).fetchUsers(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<TestDriveProvider>(context, listen: false)
-          .testDriveBookingData(context);
-      Provider.of<BookingProvider>(context, listen: false)
-          .bookingsData(context);
-    });
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "Admin",
-        ),
-        bottom: TabBar(
-            controller: _tabController,
-            tabs: const [Text("Bookings"), Text("Test Drive")]),
-      ),
-      body: TabBarView(
-          controller: _tabController,
-          children: const [Bookings(), TestDrive()]),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 30),
+      body: screen[currentInd],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(14),
         child: GNav(
+            onTabChange: (value) {
+              setState(() {
+                currentInd = value;
+              });
+            },
             rippleColor: Colors.grey,
             hoverColor: Colors.grey,
             haptic: true,
