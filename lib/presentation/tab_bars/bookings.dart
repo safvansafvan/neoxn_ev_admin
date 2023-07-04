@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nexon_ev_admin/controller/providers/booked_provider.dart';
+import 'package:nexon_ev_admin/presentation/details/booking_details.dart';
 import 'package:provider/provider.dart';
 
 class Bookings extends StatelessWidget {
@@ -19,7 +20,24 @@ class Bookings extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final details = value.bookingDetailsList[index];
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BookingDetailsWidget(
+                                  firstName: details['names'],
+                                  lastName: details['lastName'],
+                                  email: details['email'],
+                                  phone: details['phone'],
+                                  city: details['city'],
+                                  state: details['state'],
+                                  address1: details['address1'],
+                                  address2: details['address2'],
+                                  pinCode: details['pincode'],
+                                  model: details['model'],
+                                  dealerShip: details['dealer'],
+                                  status: details['status'])));
+                    },
                     child: SizedBox(
                       height: 50,
                       child: Row(
