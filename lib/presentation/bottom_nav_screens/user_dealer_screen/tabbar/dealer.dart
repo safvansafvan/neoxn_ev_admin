@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:nexon_ev_admin/controller/providers/get_users_provider.dart';
-import 'package:nexon_ev_admin/presentation/detailshow/users_details.dart';
+import 'package:nexon_ev_admin/controller/providers/get_dealer_provider.dart';
+import 'package:nexon_ev_admin/presentation/detailshow/dealer_deatails.dart';
 import 'package:provider/provider.dart';
 
-class UsersWidget extends StatelessWidget {
-  const UsersWidget({super.key});
+class DealersWidget extends StatelessWidget {
+  const DealersWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Consumer<UsersProvider>(builder: (context, value, _) {
+      child: Consumer<DealerProvider>(builder: (context, value, _) {
         return value.isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : ListView.separated(
                 itemBuilder: (context, index) {
-                  final details = value.userList[index];
+                  final details = value.dealerList[index];
                   return InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UserDetailsShowingScreen(
-                            username: details['username'],
-                            email: details['email'],
-                          ),
+                          builder: (context) => DealersDetailsWidget(
+                              name: details['dealerName'],
+                              phone: details['phone'],
+                              city: details['state'],
+                              state: details['city']),
                         ),
                       );
                     },
@@ -34,9 +35,9 @@ class UsersWidget extends StatelessWidget {
                       height: 50,
                       child: Row(
                         children: [
-                          Text(details['username'].toString()),
+                          Text(details['dealerName'].toString()),
                           const Spacer(),
-                          Text(details['email']),
+                          Text(details['state']),
                         ],
                       ),
                     ),
@@ -50,7 +51,7 @@ class UsersWidget extends StatelessWidget {
                     thickness: 2,
                   );
                 },
-                itemCount: value.userList.length);
+                itemCount: value.dealerList.length);
       }),
     );
   }

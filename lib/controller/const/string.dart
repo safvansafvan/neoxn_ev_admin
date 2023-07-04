@@ -9,4 +9,6 @@ class Urls {
 
   //user
   static String getUsers = "/get-users";
+  //dealer
+  static String getDealers = "/get-dealers";
 }

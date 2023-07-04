@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexon_ev_admin/presentation/bottom_nav_screens/user_dealer_screen/tabbar/dealer.dart';
 import 'package:nexon_ev_admin/presentation/bottom_nav_screens/user_dealer_screen/tabbar/users.dart';
 
 class UserAndDealerScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _UserAndDealerScreenState extends State<UserAndDealerScreen>
       ),
       body: TabBarView(
           controller: _tabController,
-          children: const [UsersWidget(), Text("data")]),
+          children: const [UsersWidget(), DealersWidget()]),
     );
   }
 }
