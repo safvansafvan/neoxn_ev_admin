@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:nexon_ev_admin/controller/providers/bookings_provider.dart';
+import 'package:nexon_ev_admin/controller/providers/booked_provider.dart';
+import 'package:nexon_ev_admin/controller/providers/test_dbooked_provider.dart';
+import 'package:nexon_ev_admin/presentation/tab_bars/bookings.dart';
 import 'package:nexon_ev_admin/presentation/tab_bars/test_drive.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +20,6 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    Provider.of<TestDriveProvider>(context, listen: false)
-        .bookingsData(context);
   }
 
   @override
@@ -30,11 +30,17 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<TestDriveProvider>(context, listen: false)
+          .testDriveBookingData(context);
+      Provider.of<BookingProvider>(context, listen: false)
+          .bookingsData(context);
+    });
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          "admin",
+          "Admin",
         ),
         bottom: TabBar(
             controller: _tabController,
@@ -42,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       body: TabBarView(
           controller: _tabController,
-          children: const [TestDrive(), Text("data")]),
+          children: const [Bookings(), TestDrive()]),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(left: 30),
         child: GNav(

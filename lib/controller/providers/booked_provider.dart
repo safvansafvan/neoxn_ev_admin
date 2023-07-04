@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:nexon_ev_admin/apiservice/bookingserv.dart';
+import 'package:nexon_ev_admin/apiservice/booking_service.dart';
 
-class TestDriveProvider extends ChangeNotifier {
-  List<dynamic> bookingDetails = [];
+class BookingProvider extends ChangeNotifier {
+  List<dynamic> bookingDetailsList = [];
   bool isLoading = false;
   Future bookingsData(context) async {
     isLoading = true;
-    bookingDetails = await getBookingStatus(context);
+    bookingDetailsList = await getBookingStatus(context);
     log("Data Fetched here ", name: "dataFetched");
     isLoading = false;
     notifyListeners();
