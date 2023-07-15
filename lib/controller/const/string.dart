@@ -9,6 +9,7 @@ class Urls {
 
   //user
   static String getUsers = "/get-users";
+  static String blockUser = "/block-user";
   //dealer
   static String getDealers = "/get-dealers";
 }
