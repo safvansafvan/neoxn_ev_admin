@@ -57,8 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             activeColor: Colors.purple,
             iconSize: 24,
             tabBackgroundColor: Colors.purple.withOpacity(0.1),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), //
-
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             tabs: const [
               GButton(
                 icon: Icons.bookmark_outlined,

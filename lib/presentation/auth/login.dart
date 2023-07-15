@@ -54,7 +54,6 @@ class LoginPage extends StatelessWidget {
                               controller: providerLogin.passwordController,
                               hintText: "Password",
                               keyType: TextInputType.name,
-                              isObs: true,
                               isPassword: true,
                               size: screenHeight,
                               prefixIcon: const Icon(Icons.password_rounded),

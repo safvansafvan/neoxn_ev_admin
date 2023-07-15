@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:nexon_ev_admin/controller/const/const.dart';
 import 'package:nexon_ev_admin/controller/const/string.dart';
 import 'package:nexon_ev_admin/model/login_model.dart';
+import 'package:nexon_ev_admin/presentation/auth/login.dart';
 import 'package:nexon_ev_admin/presentation/home.dart';
 import 'package:nexon_ev_admin/presentation/widget/snack_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
-  SharedPreferences? preferences;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -26,6 +26,7 @@ class LoginProvider extends ChangeNotifier {
   Future<void> getLoginStatus(context) async {
     final sharedPrefrens = await SharedPreferences.getInstance();
     isLoading = true;
+    notifyListeners();
     final String url = Urls.baseUrl + Urls.admin;
     var response = await http.post(Uri.parse(url), body: bodyData());
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -42,8 +43,7 @@ class LoginProvider extends ChangeNotifier {
           );
           snakBarWiget(context: context, title: "Login Success", clr: kgreen);
           final token = data['token'];
-          sharedPrefrens.setString("token", token);
-          sharedPrefrens.setBool("isLoggedIn", true);
+          await sharedPrefrens.setString("token", token);
           clearController();
         } else {
           log("failed", name: "else");
@@ -73,6 +73,7 @@ class LoginProvider extends ChangeNotifier {
 
   ///navigate home or login
 
+  SharedPreferences? preferences;
   Future<void> init() async {
     preferences = await SharedPreferences.getInstance();
   }
@@ -80,5 +81,18 @@ class LoginProvider extends ChangeNotifier {
   bool isLoggedIn() {
     final token = preferences?.getString("token");
     return token != null;
+  }
+
+  logout(context) async {
+    final pref = await SharedPreferences.getInstance();
+    pref.remove("token");
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginPage(),
+      ),
+    );
+
+    snakBarWiget(context: context, title: " Logout Is Success", clr: kgreen);
   }
 }

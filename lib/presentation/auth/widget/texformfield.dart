@@ -8,9 +8,6 @@ class TextFormLogin extends StatelessWidget {
   final TextInputType keyType;
   final bool isPassword;
   final bool isEmail;
-  final bool isPhone;
-  final bool isUser;
-  final bool isObs;
   final Size size;
   final dynamic prefixIcon;
   final dynamic maxlength;
@@ -23,14 +20,10 @@ class TextFormLogin extends StatelessWidget {
       required this.size,
       this.isPassword = false,
       this.isEmail = false,
-      this.isPhone = false,
-      this.isUser = false,
-      this.isObs = false,
       this.maxlength});
 
   @override
   Widget build(BuildContext context) {
-    // final provider = context.watch<LoginProvider>().passwordVisibility;
     return TextFormField(
       maxLength: maxlength,
       controller: controller,
@@ -53,14 +46,6 @@ class TextFormLogin extends StatelessWidget {
         prefixIconColor: kblack,
         prefixIcon: prefixIcon,
         suffixIconColor: kblack,
-        suffixIcon: isPassword
-            ? IconButton(
-                splashRadius: 4,
-                onPressed: () {
-                  // context.read<LoginProvider>().showPassword();
-                },
-                icon: const Icon(Icons.visibility_off))
-            : const SizedBox(),
         counterStyle: TextStyle(color: kblack),
         hintText: hintText,
         border: OutlineInputBorder(
@@ -72,7 +57,6 @@ class TextFormLogin extends StatelessWidget {
         color: kblack,
         fontWeight: FontWeight.bold,
       ),
-      // obscureText: isPassword ? provider : false,
     );
   }
 }
