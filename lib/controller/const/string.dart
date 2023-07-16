@@ -3,7 +3,7 @@ class Urls {
 
   static String admin = "/admin";
 
-  //get
+  //getbookings
   static String getBookings = "/get-bookings";
   static String getTestDrive = "/test-drive";
 
@@ -12,4 +12,7 @@ class Urls {
   static String blockUser = "/block-user";
   //dealer
   static String getDealers = "/get-dealers";
+  static String addDealer = "/add-dealer";
+  static String deleteDealer = "/delete-dealer";
+  static String blockDealer = "/block-dealer";
 }

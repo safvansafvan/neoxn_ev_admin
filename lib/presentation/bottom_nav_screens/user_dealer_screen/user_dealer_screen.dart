@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nexon_ev_admin/presentation/add_dealer/add_dealer.dart';
 import 'package:nexon_ev_admin/presentation/bottom_nav_screens/user_dealer_screen/tabbar/dealer.dart';
 import 'package:nexon_ev_admin/presentation/bottom_nav_screens/user_dealer_screen/tabbar/users.dart';
 
@@ -32,6 +33,20 @@ class _UserAndDealerScreenState extends State<UserAndDealerScreen>
         title: const Text(
           "Admin",
         ),
+        actions: [
+          IconButton(
+              padding: const EdgeInsets.only(right: 10),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddDealerScreen(),
+                  ),
+                );
+              },
+              tooltip: "Add Dealer",
+              icon: const Icon(Icons.add_box_outlined))
+        ],
         bottom: TabBar(
             controller: _tabController,
             tabs: const [Text("Users"), Text("Dealers")]),

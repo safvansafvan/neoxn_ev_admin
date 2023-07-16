@@ -19,15 +19,15 @@ class _HomeScreenState extends State<HomeScreen> {
   List screen = const [BookingScreen(), UserAndDealerScreen()];
   int currentInd = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<TestDriveProvider>(context, listen: false)
-        .testDriveBookingData(context);
-    Provider.of<BookingProvider>(context, listen: false).bookingsData(context);
-    Provider.of<UsersProvider>(context, listen: false).fetchUsers(context);
-    Provider.of<DealerProvider>(context, listen: false).fetchDealrs(context);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Provider.of<TestDriveProvider>(context, listen: false)
+  //       .testDriveBookingData(context);
+  //   Provider.of<BookingProvider>(context, listen: false).bookingsData(context);
+  //   Provider.of<UsersProvider>(context, listen: false).fetchUsers(context);
+  //   Provider.of<DealerProvider>(context, listen: false).fetchDealrs(context);
+  // }
 
   @override
   Widget build(BuildContext context) {
