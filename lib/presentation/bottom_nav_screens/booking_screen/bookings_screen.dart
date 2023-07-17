@@ -32,6 +32,11 @@ class _BookingScreenState extends State<BookingScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu)),
         centerTitle: true,
         title: const Text(
           "Admin",

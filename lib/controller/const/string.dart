@@ -15,4 +15,7 @@ class Urls {
   static String addDealer = "/add-dealer";
   static String deleteDealer = "/delete-dealer";
   static String blockDealer = "/block-dealer";
+
+  ///dashBord
+  static String getDashbord = "/get-dashboard";
 }

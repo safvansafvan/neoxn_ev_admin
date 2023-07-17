@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:nexon_ev_admin/controller/providers/booked_provider.dart';
+import 'package:nexon_ev_admin/controller/providers/get_dashbord_provider.dart';
 import 'package:nexon_ev_admin/controller/providers/get_dealer_provider.dart';
 import 'package:nexon_ev_admin/controller/providers/get_users_provider.dart';
 import 'package:nexon_ev_admin/controller/providers/test_dbooked_provider.dart';
 import 'package:nexon_ev_admin/presentation/bottom_nav_screens/booking_screen/bookings_screen.dart';
 import 'package:nexon_ev_admin/presentation/bottom_nav_screens/user_dealer_screen/user_dealer_screen.dart';
+import 'package:nexon_ev_admin/presentation/widget/drawer.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Provider.of<BookingProvider>(context, listen: false).bookingsData(context);
     Provider.of<UsersProvider>(context, listen: false).fetchUsers(context);
     Provider.of<DealerProvider>(context, listen: false).fetchDealrs(context);
+    Provider.of<DashbordProvider>(context, listen: false).getDashbord(context);
   }
 
   @override
@@ -69,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ]),
       ),
+      drawer: const DrawerWidget(),
     );
   }
 }
