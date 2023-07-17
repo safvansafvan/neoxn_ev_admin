@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:flutter/material.dart';
 import 'package:nexon_ev_admin/controller/const/const.dart';
 import 'package:nexon_ev_admin/controller/const/string.dart';
 import 'package:nexon_ev_admin/model/add_delaer_model.dart';
@@ -86,16 +85,24 @@ class DealerService {
     }
   }
 
-  addDealer(
+  static Future addDealerStatus(
       {context,
-      required TextEditingController name,
-      required TextEditingController phone,
-      required TextEditingController city,
-      required TextEditingController state}) async {
+      required name,
+      required phone,
+      required city,
+      required state,
+      required email,
+      required password}) async {
     final String url = Urls.baseUrl + Urls.admin + Urls.addDealer;
     try {
       final response = await http.post(Uri.parse(url),
-          body: dlrBody(name: name, phone: phone, city: city, state: state),
+          body: dlrBody(
+              name: name,
+              phone: phone,
+              city: city,
+              state: state,
+              email: email,
+              password: password),
           headers: {'x-access-admintoken': token!});
       final data = jsonDecode(response.body);
 
@@ -116,16 +123,20 @@ class DealerService {
     }
   }
 
-  Map<String, dynamic> dlrBody(
-      {required TextEditingController name,
-      required TextEditingController phone,
-      required TextEditingController city,
-      required TextEditingController state}) {
+  static Map<String, dynamic> dlrBody(
+      {required name,
+      required phone,
+      required city,
+      required state,
+      required email,
+      required password}) {
     final data = AddDealerReq(
-        name: name.text.trim(),
-        phone: phone.text.trim(),
-        city: city.text.trim(),
-        state: state.text.trim());
+        dealerName: name,
+        phone: phone,
+        city: city,
+        state: state,
+        email: email,
+        password: password);
     return data.toJson();
   }
 }

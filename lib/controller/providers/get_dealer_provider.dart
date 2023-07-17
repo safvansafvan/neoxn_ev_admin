@@ -9,6 +9,8 @@ class DealerProvider extends ChangeNotifier {
   TextEditingController phoneCtr = TextEditingController();
   TextEditingController cityCtr = TextEditingController();
   TextEditingController stateCtr = TextEditingController();
+  TextEditingController emailCtr = TextEditingController();
+  TextEditingController passwordCtr = TextEditingController();
   Future fetchDealrs(context) async {
     isLoading = true;
     dealerList = await DealerService.getDealersStatus(context);
@@ -26,8 +28,19 @@ class DealerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  addDealer() {
+  Future addDealer(context) async {
     addDlrLoading = true;
+    notifyListeners();
+    await DealerService.addDealerStatus(
+        name: dlrNameCtr.text.trim(),
+        phone: phoneCtr.text.trim(),
+        city: cityCtr.text.trim(),
+        state: stateCtr.text.trim(),
+        email: emailCtr.text.trim(),
+        password: passwordCtr.text.trim(),
+        context: context);
+    clearController();
+    addDlrLoading = false;
     notifyListeners();
   }
 
@@ -36,5 +49,7 @@ class DealerProvider extends ChangeNotifier {
     phoneCtr.clear();
     cityCtr.clear();
     stateCtr.clear();
+    emailCtr.clear();
+    passwordCtr.clear();
   }
 }

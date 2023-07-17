@@ -1,27 +1,35 @@
 class AddDealerReq {
-  String? name;
+  String? dealerName;
   String? phone;
   String? city;
   String? state;
+  String? email;
+  String? password;
 
   AddDealerReq({
-    this.name,
+    this.dealerName,
     this.phone,
     this.city,
     this.state,
+    this.email,
+    this.password,
   });
 
   factory AddDealerReq.fromJson(Map<String, dynamic> json) => AddDealerReq(
-        name: json["name"],
+        dealerName: json["dealerName"],
         phone: json["phone"],
         city: json["city"],
         state: json["state"],
+        email: json["email"],
+        password: json["password"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name,
+        "dealerName": dealerName,
         "phone": phone,
         "city": city,
         "state": state,
+        "email": email,
+        "password": password,
       };
 }

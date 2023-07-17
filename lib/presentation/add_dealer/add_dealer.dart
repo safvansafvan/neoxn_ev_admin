@@ -39,7 +39,8 @@ class AddDealerScreen extends StatelessWidget {
               TextFormFieldCommon(
                   controller: provider.phoneCtr,
                   hintText: "Phone",
-                  keyType: TextInputType.name,
+                  keyType: TextInputType.phone,
+                  maxlength: 10,
                   size: screenSize),
               commonHeight,
               TextFormFieldCommon(
@@ -54,10 +55,25 @@ class AddDealerScreen extends StatelessWidget {
                   keyType: TextInputType.name,
                   size: screenSize),
               commonHeight,
+              TextFormFieldCommon(
+                  controller: provider.emailCtr,
+                  hintText: "Email",
+                  keyType: TextInputType.emailAddress,
+                  size: screenSize),
+              commonHeight,
+              TextFormFieldCommon(
+                  controller: provider.passwordCtr,
+                  hintText: "Password",
+                  keyType: TextInputType.name,
+                  maxlength: 10,
+                  size: screenSize),
+              commonHeight,
               Padding(
                 padding: const EdgeInsets.only(left: 50, right: 50),
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await provider.addDealer(context);
+                  },
                   icon: const Icon(Icons.add),
                   label: const Text("Add Dealer "),
                 ),
