@@ -36,7 +36,8 @@ class Bookings extends StatelessWidget {
                               pinCode: details['pincode'],
                               model: details['model'],
                               dealerShip: details['dealer'],
-                              status: details['status']),
+                              status: details['status'],
+                              id: details['_id']),
                         ),
                       );
                     },

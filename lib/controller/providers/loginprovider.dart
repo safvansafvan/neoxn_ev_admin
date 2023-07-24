@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:nexon_ev_admin/controller/const/const.dart';
 import 'package:nexon_ev_admin/controller/const/string.dart';
 import 'package:nexon_ev_admin/model/login_model.dart';
@@ -80,7 +81,13 @@ class LoginProvider extends ChangeNotifier {
 
   bool isLoggedIn() {
     final token = preferences?.getString("token");
-    return token != null;
+    if (token == null) {
+      return false;
+    }
+    if (JwtDecoder.isExpired(token)) {
+      return false;
+    }
+    return true;
   }
 
   logout(context) async {

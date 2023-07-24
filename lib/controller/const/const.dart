@@ -14,6 +14,9 @@ textStyleFuc({required weight, required color, required double size}) {
 var commonHeight = const SizedBox(
   height: 20,
 );
+var height10 = const SizedBox(
+  height: 10,
+);
 
 // radius
 
