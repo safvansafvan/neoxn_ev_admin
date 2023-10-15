@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nexon_ev_admin/controller/providers/loginprovider.dart';
-import 'package:nexon_ev_admin/presentation/bottom_nav_screens/booking_screen/tab_bars/bookings.dart';
-import 'package:nexon_ev_admin/presentation/bottom_nav_screens/booking_screen/tab_bars/test_drive.dart';
+import 'package:nexon_ev_admin/presentation/bottom_nav_items/booking_screen/tab_bars/bookings.dart';
+import 'package:nexon_ev_admin/presentation/bottom_nav_items/booking_screen/tab_bars/test_drive.dart';
 import 'package:provider/provider.dart';
 
 class BookingScreen extends StatefulWidget {
-  const BookingScreen({
-    super.key,
-  });
+  const BookingScreen({super.key});
 
   @override
   State<BookingScreen> createState() => _BookingScreenState();

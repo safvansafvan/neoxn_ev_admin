@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nexon_ev_admin/presentation/add_dealer/add_dealer.dart';
-import 'package:nexon_ev_admin/presentation/bottom_nav_screens/user_dealer_screen/tabbar/dealer.dart';
-import 'package:nexon_ev_admin/presentation/bottom_nav_screens/user_dealer_screen/tabbar/users.dart';
+import 'package:nexon_ev_admin/presentation/bottom_nav_items/user_dealer_screen/tabbar/dealer.dart';
+import 'package:nexon_ev_admin/presentation/bottom_nav_items/user_dealer_screen/tabbar/users.dart';
 
 class UserAndDealerScreen extends StatefulWidget {
   const UserAndDealerScreen({super.key});
@@ -29,6 +29,9 @@ class _UserAndDealerScreenState extends State<UserAndDealerScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => Scaffold.of(context).openDrawer(),
+            icon: const Icon(Icons.menu)),
         centerTitle: true,
         title: const Text(
           "Admin",

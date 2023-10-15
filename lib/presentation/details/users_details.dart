@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nexon_ev_admin/controller/const/const.dart';
-import 'package:nexon_ev_admin/presentation/detailshow/widget/text_widget.dart';
+import 'package:nexon_ev_admin/presentation/details/widget/text_widget.dart';
 
 // ignore: must_be_immutable
 class UserDetailsShowingScreen extends StatelessWidget {
