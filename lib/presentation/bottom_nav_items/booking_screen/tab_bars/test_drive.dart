@@ -29,13 +29,7 @@ class TestDrive extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) =>
                                   TestDriveBookedPersonDetails(
-                                name: details['name'],
-                                email: details['email'],
-                                phone: details['phone'],
-                                city: details['city'],
-                                state: details['state'],
-                                model: details['model'],
-                                dealerShip: details['dealership'],
+                                testDriveStatus: details,
                               ),
                             ),
                           );
@@ -44,9 +38,9 @@ class TestDrive extends StatelessWidget {
                           height: 50,
                           child: Row(
                             children: [
-                              Text(details['name'].toString()),
+                              Text(details.name.toString()),
                               const Spacer(),
-                              Text(details['email']),
+                              Text(details.email.toString()),
                             ],
                           ),
                         ),

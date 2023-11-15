@@ -27,30 +27,18 @@ class Bookings extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BookingDetailsWidget(
-                                  firstName: details['names'],
-                                  lastName: details['lastName'],
-                                  email: details['email'],
-                                  phone: details['phone'],
-                                  city: details['city'],
-                                  state: details['state'],
-                                  address1: details['address1'],
-                                  address2: details['address2'],
-                                  pinCode: details['pincode'],
-                                  model: details['model'],
-                                  dealerShip: details['dealer'],
-                                  status: details['status'],
-                                  id: details['_id']),
-                            ),
+                                builder: (context) => BookingDetailsWidget(
+                                      bookingStatus: details,
+                                    )),
                           );
                         },
                         child: SizedBox(
                           height: 50,
                           child: Row(
                             children: [
-                              Text(details['names'].toString()),
+                              Text(details.names.toString()),
                               const Spacer(),
-                              Text(details['email'].toString()),
+                              Text(details.email.toString()),
                             ],
                           ),
                         ),
