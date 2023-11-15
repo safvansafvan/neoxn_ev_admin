@@ -14,13 +14,11 @@ class BookingService {
     final String url = Urls.baseUrl + Urls.admin + Urls.getBookings;
     final pref = await SharedPreferences.getInstance();
     token = pref.getString("token");
-    log("$token");
     try {
       final response = await http
           .get(Uri.parse(url), headers: {'x-access-admintoken': token!});
       log("called get function in booked person");
       if (response.statusCode == 200) {
-        log(response.body);
         final data = jsonDecode(response.body);
         final result = data['result'];
         return result;
@@ -46,7 +44,6 @@ class BookingService {
       if (response.statusCode == 200) {
         if (data['status'] == 'success') {
           log('updated');
-          log(response.body);
         }
       } else {
         log(response.statusCode.toString());

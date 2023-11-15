@@ -20,8 +20,6 @@ class DealerService {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
         final status = data['status'];
         if (status == 'success') {
-          log("${response.statusCode}");
-          log("$data", name: "get dealer");
           final result = data['result'];
           return result;
         } else {

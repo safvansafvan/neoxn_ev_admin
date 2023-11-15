@@ -1,14 +1,10 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:nexon_ev_admin/apiservice/login_service.dart';
 import 'package:nexon_ev_admin/controller/const/const.dart';
-import 'package:nexon_ev_admin/controller/const/string.dart';
 import 'package:nexon_ev_admin/model/login_model.dart';
 import 'package:nexon_ev_admin/presentation/auth/login.dart';
-import 'package:nexon_ev_admin/presentation/home.dart';
 import 'package:nexon_ev_admin/presentation/widget/snack_bar.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
@@ -20,43 +16,8 @@ class LoginProvider extends ChangeNotifier {
   bool isLoading = false;
 
   Future<void> loginButtonClick(context) async {
-    await getLoginStatus(context);
+    await LoginService.getLoginStatus(context);
     notifyListeners();
-  }
-
-  Future<void> getLoginStatus(context) async {
-    final sharedPrefrens = await SharedPreferences.getInstance();
-    isLoading = true;
-    notifyListeners();
-    final String url = Urls.baseUrl + Urls.admin;
-    var response = await http.post(Uri.parse(url), body: bodyData());
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      log("${response.statusCode}");
-      final data = jsonDecode(response.body);
-      try {
-        if (data['status'] == 'success') {
-          log(response.body);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
-            ),
-          );
-          snakBarWiget(context: context, title: "Login Success", clr: kgreen);
-          final token = data['token'];
-          await sharedPrefrens.setString("token", token);
-          clearController();
-        } else {
-          log("failed", name: "else");
-          final msg = data['message'];
-          snakBarWiget(context: context, title: msg, clr: kred);
-        }
-      } catch (e) {
-        log(e.toString());
-        snakBarWiget(context: context, title: e.toString(), clr: kred);
-      }
-      isLoading = false;
-    }
   }
 
   Map<String, dynamic> bodyData() {
@@ -90,7 +51,7 @@ class LoginProvider extends ChangeNotifier {
     return true;
   }
 
-  logout(context) async {
+  Future<void> logout(context) async {
     final pref = await SharedPreferences.getInstance();
     pref.remove("token");
     Navigator.pushReplacement(

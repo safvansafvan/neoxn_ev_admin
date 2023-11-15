@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done) {
               return MaterialApp(
                   debugShowCheckedModeBanner: false,
-                  title: 'Flutter Demo',
+                  title: 'Nexon ev admin',
                   theme: ThemeData(
                     colorScheme:
                         ColorScheme.fromSeed(seedColor: Colors.deepPurple),
