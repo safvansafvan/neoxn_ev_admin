@@ -23,7 +23,6 @@ class LoginService {
       final data = jsonDecode(response.body);
       try {
         if (data['status'] == 'success') {
-          log(response.body);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -41,7 +40,6 @@ class LoginService {
         }
       } catch (e) {
         log(e.toString());
-        snakBarWiget(context: context, title: e.toString(), clr: kred);
       }
     }
   }

@@ -17,7 +17,7 @@ class BookingService {
     try {
       final response = await http
           .get(Uri.parse(url), headers: {'x-access-admintoken': token!});
-      log("called get function in booked person");
+
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final result = data['result'];

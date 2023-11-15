@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:nexon_ev_admin/apiservice/booking_service.dart';
 
@@ -9,7 +8,6 @@ class BookingProvider extends ChangeNotifier {
   Future bookingsData(context) async {
     isLoading = true;
     bookingDetailsList = await BookingService.getBookingStatus(context);
-    log("Data Fetched here ", name: "dataFetched");
     isLoading = false;
     notifyListeners();
   }

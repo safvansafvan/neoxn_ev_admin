@@ -11,7 +11,6 @@ Future getTestDriveBookingStatus(context) async {
     final response = await http.get(Uri.parse(url));
     log("called get function");
     if (response.statusCode == 200) {
-      log(response.body);
       final data = jsonDecode(response.body);
       final result = data['result'];
       return result;
@@ -27,6 +26,5 @@ Future getTestDriveBookingStatus(context) async {
     }
   } catch (e) {
     log(e.toString(), name: "catch");
-    snakBarWiget(context: context, title: e.toString(), clr: kred);
   }
 }

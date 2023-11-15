@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nexon_ev_admin/controller/const/const.dart';
+import 'package:nexon_ev_admin/controller/providers/internet_provider.dart';
 import 'package:nexon_ev_admin/controller/providers/loginprovider.dart';
 import 'package:nexon_ev_admin/presentation/auth/widget/image.dart';
 import 'package:nexon_ev_admin/presentation/auth/widget/texformfield.dart';
+import 'package:nexon_ev_admin/presentation/widget/snack_bar.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
@@ -69,7 +71,7 @@ class LoginPage extends StatelessWidget {
                               onPressed: () async {
                                 if (providerLogin.globelKey.currentState!
                                     .validate()) {
-                                  await providerLogin.loginButtonClick(context);
+                                  await handleLogin(context);
                                 }
                               },
                               icon: const Icon(Icons.login_rounded),
@@ -84,5 +86,19 @@ class LoginPage extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  Future<void> handleLogin(context) async {
+    final providerLogin = Provider.of<LoginProvider>(context, listen: false);
+    final ip = Provider.of<InternetController>(context, listen: false);
+    await ip.checkConnection();
+    if (ip.hasInternet == false) {
+      snakBarWiget(
+          context: context,
+          title: 'Please Enable Internet Connection',
+          clr: kgreen);
+    } else {
+      await providerLogin.loginButtonClick(context);
+    }
   }
 }
