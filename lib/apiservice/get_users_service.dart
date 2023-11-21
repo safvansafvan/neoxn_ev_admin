@@ -1,17 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:nexon_ev_admin/controller/const/const.dart';
+import 'package:nexon_ev_admin/controller/const/functions.dart';
 import 'package:nexon_ev_admin/controller/const/string.dart';
 import 'package:nexon_ev_admin/presentation/widget/snack_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-String? token;
-
 class UserService {
+  static String? token;
   static Future getUserStatus(context) async {
-    final pref = await SharedPreferences.getInstance();
-    token = pref.getString("token");
+    token = await getAdminToken();
     final String url = Urls.baseUrl + Urls.admin + Urls.getUsers;
     try {
       final response = await http

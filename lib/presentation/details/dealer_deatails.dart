@@ -3,13 +3,12 @@ import 'package:nexon_ev_admin/controller/const/const.dart';
 import 'package:nexon_ev_admin/presentation/details/widget/text_widget.dart';
 
 class DealersDetailsWidget extends StatelessWidget {
-  const DealersDetailsWidget({
-    super.key,
-    required this.name,
-    required this.phone,
-    required this.city,
-    required this.state,
-  });
+  const DealersDetailsWidget(
+      {super.key,
+      required this.name,
+      required this.phone,
+      required this.city,
+      required this.state});
 
   final String name;
   final int phone;
@@ -20,7 +19,10 @@ class DealersDetailsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Drive Booked Person Details"),
+        centerTitle: true,
+        title: const Text("Dealer Details"),
+        bottom: const PreferredSize(
+            preferredSize: Size(double.infinity, 0), child: Divider()),
       ),
       body: SafeArea(
         child: Padding(

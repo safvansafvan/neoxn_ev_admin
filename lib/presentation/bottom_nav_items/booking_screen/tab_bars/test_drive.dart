@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nexon_ev_admin/controller/providers/test_dbooked_provider.dart';
-import 'package:nexon_ev_admin/presentation/details/test_drive_person.dart';
+import 'package:nexon_ev_admin/presentation/details/test_drive_status.dart';
 import 'package:provider/provider.dart';
 
 class TestDrive extends StatelessWidget {
@@ -34,14 +34,17 @@ class TestDrive extends StatelessWidget {
                             ),
                           );
                         },
-                        child: SizedBox(
-                          height: 50,
-                          child: Row(
-                            children: [
-                              Text(details.name.toString()),
-                              const Spacer(),
-                              Text(details.email.toString()),
-                            ],
+                        child: ListTile(
+                          title: Text(details.name ?? 'Unknwon'),
+                          subtitle: Text(details.email ?? 'Unknwon'),
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  TestDriveBookedPersonDetails(
+                                testDriveStatus: details,
+                              ),
+                            ),
                           ),
                         ),
                       );

@@ -35,7 +35,7 @@ class BookingStatus {
     this.updatedAt,
   });
   factory BookingStatus.fromJson(Map<String, dynamic> json) => BookingStatus(
-        id: json["id"],
+        id: json["_id"],
         names: json["names"],
         lastName: json["lastName"],
         email: json["email"],

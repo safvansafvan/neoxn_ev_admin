@@ -20,6 +20,8 @@ class UserDetailsShowingScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("User Information"),
+        bottom: const PreferredSize(
+            preferredSize: Size(double.infinity, 0), child: Divider()),
       ),
       body: SafeArea(
           child: Padding(

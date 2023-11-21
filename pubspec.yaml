@@ -9,21 +9,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  email_validator: ^2.1.17
-  lottie: ^2.4.0
-  provider: ^6.0.5
-  http: ^1.1.0
-  shared_preferences: ^2.2.0
-  google_nav_bar: ^5.0.6
-  flutter_slidable: ^3.0.0
+  cupertino_icons: 1.0.2
+  email_validator: 2.1.17
+  lottie: 2.4.0
+  provider: 6.0.5
+  http: 1.1.0
+  shared_preferences: 2.2.0
+  google_nav_bar: 5.0.6
+  flutter_slidable: 3.0.0
   animated_custom_dropdown: 1.5.0
   jwt_decoder: 2.0.1
   connectivity_plus: 5.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: 2.0.0
 
 flutter:
   uses-material-design: true

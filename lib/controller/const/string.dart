@@ -7,6 +7,7 @@ class Urls {
   static String getBookings = "/get-bookings";
   static String updateStatus = "/get-bookings-status";
   static String getTestDrive = "/test-drive";
+  static String updateTestDrive = '/update-test-drive-status';
 
   //user
   static String getUsers = "/get-users";

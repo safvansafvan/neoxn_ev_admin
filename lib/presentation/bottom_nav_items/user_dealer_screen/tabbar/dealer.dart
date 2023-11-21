@@ -27,53 +27,50 @@ class DealersWidget extends StatelessWidget {
                     return ListView.separated(
                         itemBuilder: (context, index) {
                           final details = value.dealerList[index];
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DealersDetailsWidget(
-                                      name: details['dealerName'],
-                                      phone: details['phone'],
-                                      city: details['state'],
-                                      state: details['city']),
-                                ),
-                              );
-                            },
-                            child: Slidable(
-                              startActionPane: ActionPane(
-                                  motion: const StretchMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      onPressed: (context) async {
-                                        await value.deleteDealer(
-                                            details['_id'], context);
-                                      },
-                                      backgroundColor: kwhite,
-                                      icon: Icons.delete_outline_rounded,
-                                      foregroundColor: kred,
-                                    ),
-                                    SlidableAction(
-                                      onPressed: (context) async {
-                                        await value.blockDealer(
-                                            details['_id'], context);
-                                      },
-                                      backgroundColor: kwhite,
-                                      icon: details['isBanned'] == true
-                                          ? Icons.lock_open
-                                          : Icons.lock_outline,
-                                    ),
-                                  ]),
-                              child: SizedBox(
-                                height: 50,
-                                child: Row(
-                                  children: [
-                                    Text(details['dealerName'].toString()),
-                                    const Spacer(),
-                                    Text(details['state']),
-                                  ],
-                                ),
-                              ),
+                          return Slidable(
+                            startActionPane: ActionPane(
+                                motion: const StretchMotion(),
+                                children: [
+                                  SlidableAction(
+                                    onPressed: (context) async {
+                                      await value.deleteDealer(
+                                          details['_id'], context);
+                                    },
+                                    backgroundColor: kwhite,
+                                    icon: Icons.delete_outline_rounded,
+                                    foregroundColor: kred,
+                                  ),
+                                  SlidableAction(
+                                    onPressed: (context) async {
+                                      await value.blockDealer(
+                                          details['_id'], context);
+                                    },
+                                    backgroundColor: kwhite,
+                                    icon: details['isBanned'] == true
+                                        ? Icons.lock_open
+                                        : Icons.lock_outline,
+                                  ),
+                                ]),
+                            child: ListTile(
+                              title: Text(details['dealerName'] ?? 'Unknown'),
+                              subtitle: Text(details['state']),
+                              trailing: IconButton(
+                                  tooltip: "Drag Right",
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                      Icons.arrow_forward_ios_rounded)),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DealersDetailsWidget(
+                                        name: details['dealerName'],
+                                        phone: details['phone'],
+                                        city: details['state'],
+                                        state: details['city']),
+                                  ),
+                                );
+                              },
                             ),
                           );
                         },

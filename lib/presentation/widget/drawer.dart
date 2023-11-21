@@ -10,6 +10,10 @@ class DrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<DashbordProvider>(context, listen: false)
+          .getDashbord(context);
+    });
     return Drawer(
       child: SafeArea(
         child: ListView(

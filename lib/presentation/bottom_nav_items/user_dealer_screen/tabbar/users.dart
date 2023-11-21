@@ -32,47 +32,45 @@ class _UsersWidgetState extends State<UsersWidget> {
                     return ListView.separated(
                         itemBuilder: (context, index) {
                           final details = value.userList[index];
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      UserDetailsShowingScreen(
-                                    username: details['username'],
-                                    email: details['email'],
+                          return Slidable(
+                            startActionPane: ActionPane(
+                                motion: const StretchMotion(),
+                                children: [
+                                  SlidableAction(
+                                    onPressed: (context) async {
+                                      await value.blockUser(
+                                          details['_id'], context);
+                                    },
+                                    backgroundColor: kwhite,
+                                    icon: details['isBanned'] == true
+                                        ? Icons.lock_open
+                                        : Icons.lock_outline,
+                                    label: details['isBanned'] == true
+                                        ? "Unblock"
+                                        : "Block",
+                                  )
+                                ]),
+                            child: ListTile(
+                              title: Text(details['username'] ?? 'Unknown'),
+                              subtitle: Text(details['email']),
+                              trailing: IconButton(
+                                  tooltip: "Drag Right",
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                      Icons.arrow_forward_ios_rounded)),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        UserDetailsShowingScreen(
+                                      username:
+                                          details['username'] ?? 'Unknown',
+                                      email: details['email'] ?? 'Unknown',
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                            child: Slidable(
-                              startActionPane: ActionPane(
-                                  motion: const StretchMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      onPressed: (context) async {
-                                        await value.blockUser(
-                                            details['_id'], context);
-                                      },
-                                      backgroundColor: kwhite,
-                                      icon: details['isBanned'] == true
-                                          ? Icons.lock_open
-                                          : Icons.lock_outline,
-                                      label: details['isBanned'] == true
-                                          ? "Unblock"
-                                          : "Block",
-                                    )
-                                  ]),
-                              child: SizedBox(
-                                height: 50,
-                                child: Row(
-                                  children: [
-                                    Text(details['username'].toString()),
-                                    const Spacer(),
-                                    Text(details['email']),
-                                  ],
-                                ),
-                              ),
+                                );
+                              },
                             ),
                           );
                         },

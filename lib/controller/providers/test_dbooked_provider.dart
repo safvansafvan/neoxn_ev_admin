@@ -15,7 +15,7 @@ class TestDriveProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateTestDriveBooking({context, id}) async {
+  Future<void> updateTestDriveBooking({context, id, selectedStatus}) async {
     isUpdate = true;
     await TestDriveService.updateStatus(context: context, id: id);
     isUpdate = false;

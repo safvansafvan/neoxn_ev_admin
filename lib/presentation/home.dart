@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:nexon_ev_admin/controller/const/const.dart';
 import 'package:nexon_ev_admin/controller/providers/booked_provider.dart';
-import 'package:nexon_ev_admin/controller/providers/get_dashbord_provider.dart';
 import 'package:nexon_ev_admin/controller/providers/get_dealer_provider.dart';
 import 'package:nexon_ev_admin/controller/providers/get_users_provider.dart';
-import 'package:nexon_ev_admin/controller/providers/internet_provider.dart';
 import 'package:nexon_ev_admin/controller/providers/test_dbooked_provider.dart';
 import 'package:nexon_ev_admin/presentation/bottom_nav_items/booking_screen/bookings_screen.dart';
 import 'package:nexon_ev_admin/presentation/bottom_nav_items/user_dealer_screen/user_dealer_screen.dart';
 import 'package:nexon_ev_admin/presentation/widget/drawer.dart';
-import 'package:nexon_ev_admin/presentation/widget/snack_bar.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,11 +19,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List screen = const [BookingScreen(), UserAndDealerScreen()];
   int currentInd = 0;
-
   @override
   void initState() {
-    fetchAppDatas(context);
     super.initState();
+    Provider.of<TestDriveProvider>(context, listen: false)
+        .testDriveBookingData(context);
+    Provider.of<BookingProvider>(context, listen: false).bookingsData(context);
+    Provider.of<UsersProvider>(context, listen: false).fetchUsers(context);
+    Provider.of<DealerProvider>(context, listen: false).fetchDealrs(context);
   }
 
   @override
@@ -72,27 +71,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: const DrawerWidget(),
     );
-  }
-
-  Future<void> fetchAppDatas(context) async {
-    final ip = Provider.of<InternetController>(context, listen: false);
-    await ip.checkConnection();
-    if (ip.hasInternet == false) {
-      snakBarWiget(
-          context: context,
-          title: 'Please Enable Internet Connection',
-          clr: kgreen);
-    } else {
-      await Provider.of<TestDriveProvider>(context, listen: false)
-          .testDriveBookingData(context);
-      await Provider.of<BookingProvider>(context, listen: false)
-          .bookingsData(context);
-      await Provider.of<UsersProvider>(context, listen: false)
-          .fetchUsers(context);
-      await Provider.of<DealerProvider>(context, listen: false)
-          .fetchDealrs(context);
-      await Provider.of<DashbordProvider>(context, listen: false)
-          .getDashbord(context);
-    }
   }
 }
